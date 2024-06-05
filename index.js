@@ -25,8 +25,12 @@ app.get("/api/hello", function (req, res) {
 });
 
 app.get("/api/:date", (req, res) => {
-  const utcDate = req.params.date ??  new Date();
+  let utcDate = req.params.date;
+  if ((/^([0-9])+$/gi).test(utcDate)){
+    utcDate = parseInt(utcDate);
+  } 
   const date = new Date(utcDate);
+  
   res.json({
     unix: date.getTime(),
     utc: date.toGMTString()
