@@ -24,12 +24,14 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+// default route
 app.get("/api", (req, res) => {
   const date = new Date();
   res.json({ unix: date.getTime(),
     utc: date.toGMTString()})
 })
 
+// date by params
 app.get("/api/:date", (req, res) => {
   let utcDate = req.params.date;
   if ((/^([0-9])+$/gi).test(utcDate)){
