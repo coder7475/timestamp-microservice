@@ -29,7 +29,7 @@ app.get("/api/:date", (req, res) => {
   const date = new Date(utcDate);
   res.json({
     unix: date.getTime(),
-    utc: date.toString()
+    utc: date.toGMTString()
   })
 })
 
