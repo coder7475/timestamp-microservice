@@ -30,14 +30,20 @@ app.get("/api/:date", (req, res) => {
     utcDate = parseInt(utcDate);
   } 
   const date = new Date(utcDate);
-  
-  res.json({
+  const response = isDateValid(date) ? {
     unix: date.getTime(),
     utc: date.toGMTString()
-  })
+  } : {
+    error: date.toString()
+  }
+  res.json(response)
 })
 
 // Listen on port set in environment variable or default to 3000
 var listener = app.listen(process.env.PORT || 3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
+
+function isDateValid(dateStr) {
+  return !isNaN(new Date(dateStr));
+}
